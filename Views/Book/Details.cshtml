@@ -1,0 +1,49 @@
+﻿@model List<Bookinist.Models.DTO.BookDTO>
+  
+<br />
+<h5 class="text-white">Подробно о книге</h5>
+<div class="good" style="border: 1px solid #fff; border-radius: 10px;">
+    
+    
+        <div class="card-body">
+            @foreach (var book in Model)
+            {
+                <div class="row">
+                    <div class="col-md-4">
+
+                        <img src="@Url.Content("~/Image/"+book.CreatedAt.ToString()+".jpg")" type="jpg/mpeg" id="@book.Id" style=" height:400px;width:280px; align-items:center;" class="img-thumbnail"/>
+
+                    </div>
+                    <div class="col-md">
+                        <div class="">
+                            <span style="font-size: 26px; color: rgb(94,187,241);" class="bold-text">@book.Name</span> <br />
+                            <span class="bold-text text-white">Автор : </span>@book.Author<br />
+                            <span class="bold-text text-white">Цена : </span>@book.Price<br />
+                            <span class="bold-text text-white">Категория : </span>@book.CategoryName<br />
+                            <span class="bold-text text-white">Описание: </span> @book.LongDesc <br /><br />
+                            <span class="bold-text text-white">Владелец: </span> @book.UserName <br />
+                            <span class="bold-text text-white">Телефон: </span> @book.PhoneNumber <br />
+                        </div>
+                    </div>
+                </div>
+            }
+       
+
+    </div>
+</div>
+
+<style>
+body{
+    color:wheat;
+}
+    .good {
+        width: 900px
+    }
+    .bold-text {
+        font-weight: bold;
+        font-size: 18px
+    }
+    span{
+        color:white;
+    }
+</style>

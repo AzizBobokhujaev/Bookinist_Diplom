@@ -1,0 +1,69 @@
+﻿@model List<Bookinist.Models.Entity.AudioBook>
+<br />
+<h5 class="pt-3" style="color:white">All AudioBooks</h5>
+<br />
+<table class="table table-dark">
+    <thead class="thead-dark">
+        <tr>
+            <th>Id</th>
+            <th>Название</th>
+            <th>Описание</th>
+            <th>Аудиокнига</th>
+            <th>Владелец</th>
+            <th>Статус</th>
+            <th></th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.Id</td>
+                <td>@book.Name</td>
+                <td>@book.Description</td>
+                <td>
+                    <audio controls preload="auto" onended="endSong(id)" onplay="playSong(id)" class="songs" id="@book.Id">
+                        <source src="@Url.Content("~/Music/"+book.CreatedAt+".mp3")" type="audio/mpeg">
+                    </audio>
+                </td>
+                <td>@book.UserName</td>
+                @if (book.Status == true)
+                {
+                    <td class="text-success">Опубликован</td>
+                }
+                else
+                {
+                    <td class="text-warning">На рассмотрениии</td>
+                }
+                <td><a class="btn btn-info" href="~/AudioBook/Edit?id=@book.Id">Изменить</a></td>
+                <td><a class="btn btn-danger" href="~/AudioBook/Delete?id=@book.Id">Удалить</a></td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script src="~/js/site.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+
+<script type="text/javascript">
+    function endSong(id) {
+        var i = 0;
+        var audioArray = document.getElementsByClassName('songs');
+        while (audioArray[i].id != id) { i++; }
+        i += 1;
+        audioArray[i].play();
+    }
+</script>
+
+<script type="text/javascript">
+    function playSong(id) {
+        var i = 0;
+        var audioArray = document.getElementsByClassName('songs');
+        for (i = 0; i < audioArray.length; i++) {
+            if (audioArray[i].id != id) { audioArray[i].pause(); }
+        }
+    }
+</script>

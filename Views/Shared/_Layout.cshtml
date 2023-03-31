@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Bookinist</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body style="background-color:rgb(14,22,33)">
+    <header class="p-3 bg-dark text-white">
+        <div class="container">
+            <div class="">
+                <div class="d-flex justify-content-between">
+                    <ul class="nav col-auto col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                        <li>
+                            <img src="~/image/books-stack-of-three.png" style="width:40px;height:40px;" />
+                        </li>
+                        <li><a class="nav-link px-2 " style="color: rgb(94,187,241); font-weight: 700; font-size:25px;margin-top:-10px;" asp-action="Home" asp-controller="Book">Bookinist</a></li>
+                        <li><a class="nav-link px-2" asp-area="" asp-controller="AudioBook" asp-action="Index" style="color: rgb(94,187,241);">Aудиокниги</a></li>
+                        <li><a class="nav-link px-2" asp-area="" asp-controller="PdfBook" asp-action="Index" style="color: rgb(94,187,241);">Е-книги</a></li>
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Аккаунт
+                                </a>
+                                <div class="dropdown-menu bg-dark" style="border: 1px solid rgb(94,187,241);" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item text-white" asp-action="GetMyBooks" asp-controller="Book">Мои книги</a>
+                                    <a class="dropdown-item text-white" asp-action="GetMyAudioBooks" asp-controller="AudioBook">Мои аудиокниги</a>
+                                    <a class="dropdown-item text-white" asp-action="GetMyPdfBooks" asp-controller="PdfBook">Мои pdf-книги</a>
+                                    <a class="dropdown-item text-white" asp-area="" asp-controller="Account" asp-action="UserInfo">Мой аккаунт</a>
+                                </div>
+                            </li>
+                        }
+
+
+
+
+                    </ul>
+
+                    <ul class="nav col-auto col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            if (User.IsInRole("User"))
+                            {
+                                <li><h4 style="margin-top: .5rem !important; margin-right: 10px;">Привет <span style="color: rgb(94,187,241);">@User.Identity.Name</span>!</h4></li>
+                            }
+                            <li class="nav-item" style="margin-top: .4rem !important;">
+                                <a class="btn btn-warning" asp-action="Logout" asp-controller="Account">Выйти</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item" style="margin-left:740px">
+                                <a class="btn btn-warning" asp-action="Login" asp-controller="Account">Войти</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+              
+
+
+            </div>
+        </div>
+    </header>
+    <div class="container" style="background-color:rgb(14,22,33)">
+        @if (User.IsInRole("Admin"))
+        {
+            <div class="d-flex justify-content-between">
+                <div class="d-flex flex-column flex-shrink-0 p-3 mt-4 mr-3 text-white bg-dark" style="width: 280px; height: 440px; border-radius: 8px; border: 1px solid rgb(94,187,241); ">
+                    <div class="">
+                        <ul class="nav nav-pills flex-column">
+                            <li class="nav-item">
+                                <div class="d-flex justify-content-center align-items-center m-auto" style="border-radius: 50%; height: 100px; width: 100px; background: rgba(0,0,0,0.2); color:rgba(0,0,0,0.5); font-size:36px;">
+                                    A
+                                </div>
+                            </li>
+                            <li class="nav-item mt-2 mb-2">
+                                <div style="background:rgba(24,160,94,0.4); font-weight:700; border-radius:8px;" class="d-flex justify-content-center align-items-center p-2 m-2 label label-inverse m-auto">@User.Identity.Name</div>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/" class="nav-link text-white button-hovered" aria-current="page" style="margin-top:1px; border-radius:10px;">
+                                    <i class="fas fa-home" width="16" height="16" style="color: rgb(94,187,241); margin-right: .5rem !important; "></i>
+                                    Домой
+                                </a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-white button-hovered" asp-area="" asp-controller="Account" asp-action="Index" style=" margin-top: 5px; border-radius: 10px;">
+                                    <i class="fas fa-user" width="16" height="16" style="color: rgb(94,187,241); margin-right: .5rem !important; "></i>
+                                    Список Аккаунтов
+                                </a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-white button-hovered" asp-area="" asp-controller="Book" asp-action="Index" style=" margin-top: 5px; border-radius: 10px;">
+                                    <i class="fas fa-book" width="16" height="16" style="color: rgb(94,187,241); margin-right: .5rem !important; "></i>
+                                    Список книг
+                                </a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-white button-hovered" asp-area="" asp-controller="AudioBook" asp-action="GetAllAudioBooks" style=" margin-top: 5px; border-radius: 10px;">
+                                    <i class="fas fa-music" width="16" height="16" style="color: rgb(94,187,241); margin-right: .5rem !important; "></i>
+                                    Список аудиокниг
+                                </a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-white button-hovered" asp-area="" asp-controller="PdfBook" asp-action="GetAllPdfBooks" style=" margin-top: 5px; border-radius: 10px;">
+                                    <i class="fas fa-file-pdf" width="16" height="16" style="color: rgb(94,187,241); margin-right: .5rem !important; "></i>
+                                    Список pdf-книг
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                </div>
+
+                <main role="main" class="pb-3">
+                    @RenderBody()
+                </main>
+            </div>
+        }
+        else
+        {
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        }
+
+
+        <footer class="footer text-muted">
+            <div class="">
+                &copy; 2021 - Bookinist
+            </div>
+        </footer>
+        <style>
+            .button-hovered{
+                border: 1px solid transparent;
+                background: rgba(0,0,0,0.3);
+            }
+            .button-hovered:hover {
+                border: 1px solid rgb(94,187,241);
+
+            }
+            .dropdown-item:hover{
+                background-color:rgb(53,58,64);
+            }          
+        </style>
+        <script src="https://kit.fontawesome.com/5fd75352c8.js" crossorigin="anonymous"></script>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        @await RenderSectionAsync("Scripts", required: false)
+    </div>
+</body>
+</html>

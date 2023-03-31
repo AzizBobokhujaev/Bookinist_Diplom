@@ -1,0 +1,38 @@
+﻿@model Bookinist.Models.Entity.User
+
+<h1 class="text-white">Изменить</h1>
+
+<div class="good">
+    <div class="card-body" style="border: 1px solid #fff; border-radius: 10px;">
+        
+            <form method="post" asp-action="Edit" asp-controller="Account" enctype="multipart/form-data">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label asp-for="UserName" class="control-label text-white"></label>
+                    <input asp-for="UserName" class="form-control" />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PhoneNumber" class="control-label text-white">Номер телефона</label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label text-white">Электронная почта</label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Сохранить" class="btn btn-success" />
+                    <a asp-action="Index" asp-controller="Account" class="btn btn-primary">Назад</a>
+                </div>
+            </form>
+       
+    </div>
+</div>
+<style>
+    .good{
+        width:800px;
+    }
+</style>

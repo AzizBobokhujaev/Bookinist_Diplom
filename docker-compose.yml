@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  bookinist:
+    image: bookinist:latest
+    build: .
+    ports:
+      - "7145:7145"
+      - "8080:80"
+    environment:
+      DB_CONNECTION_STRING: "host=db;port=5432;database=Bookinist;username=postgres;password=postgres"
+      ASPNETCORE_ENVIRONMENT: "Development"
+    depends_on:
+      - db
+    networks:
+      - bookinist-network
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: 'Bookinist'
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'postgres'
+    volumes:
+      - bookinist-data:/var/lib/postgresql/data
+    networks:
+      - bookinist-network
+
+networks:
+  bookinist-network:
+    driver: bridge
+
+volumes:
+  bookinist-data:
+    driver: local
+

@@ -1,0 +1,47 @@
+﻿@model List<Bookinist.Models.Entity.PdfBook>
+<br />
+<div class="d-flex justify-content-between">
+    <h5 class="pt-3" style="color:white">Мои аудиокниги</h5>
+
+    <a class="btn btn-primary" asp-area="" asp-controller="PdfBook" asp-action="Create">Добавить</a>
+</div>
+<br />
+<table class="table table-dark">
+    <thead class="thead-dark">
+        <tr>
+            <th>Id</th>
+            <th>Название</th>
+            <th>Описание</th>
+            <th>Файл</th>
+            <th>Владелец</th>
+            <th>Статус</th>
+            <th></th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.Id</td>
+                <td>@book.Name</td>
+                <td>@book.Description</td>
+                <td>
+                    <a class="btn btn-info" href="@Url.Content("~/PDF/"+book.CreatedAt.ToString()+".pdf")">@book.Name</a>
+                </td>
+                <td>@book.UserName</td>
+                @if (book.Status == true)
+                {
+                    <td class="text-success">Опубликован</td>
+                }
+                else
+                {
+                    <td class="text-warning">На рассмотрениии</td>
+                }
+                <td><a class="btn btn-info" href="~/PdfBook/Edit?id=@book.Id">Изменить</a></td>
+                <td><a class="btn btn-danger" href="~/PdfBook/Delete?id=@book.Id">Удалить</a></td>
+
+            </tr>
+        }
+    </tbody>
+</table>

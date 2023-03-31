@@ -1,0 +1,62 @@
+﻿@model Bookinist.Models.DTO.BookDTO
+
+<h5 class="text-white">Изменить книгу</h5>
+<div class="good" style="border: 1px solid #fff; border-radius: 10px;">
+    <div class="card-body">
+        <form method="post" asp-action="Edit" asp-controller="Book" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="Id" type="hidden" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label text-white"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Author" class="control-label text-white"></label>
+                <input asp-for="Author" class="form-control" />
+                <span asp-validation-for="Author" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label text-white"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShortDesc" class="control-label text-white"></label>
+                <input asp-for="ShortDesc" class="form-control" />
+                <span asp-validation-for="ShortDesc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LongDesc" class="control-label text-white"></label>
+                <textarea asp-for="LongDesc" class="form-control" aria-label="With textarea"></textarea>
+                <span asp-validation-for="LongDesc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label text-white"></label>
+                <select asp-for="CategoryId" class="form-control" asp-items="Model.Categories"></select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            @if (User.IsInRole("Admin"))
+            {
+                <div class="form-group">
+                    <label asp-for="Status" class="control-label text-white"></label>
+                    <select class="form-control" asp-for="Status">
+                        <option class="text-danger" value="false">Неактивный</option>
+                        <option class="text-success" value="true">Активный</option>
+                    </select>
+                    <span asp-validation-for="Status" class="text-danger"></span>
+                </div>
+            }
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-success" />
+                <a asp-action="Index" asp-controller="Book" class="btn btn-primary">Назад</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    .good{
+        width:800px
+    }
+</style>
