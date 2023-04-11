@@ -70,6 +70,9 @@ namespace Bookinist.Migrations
                     b.Property<string>("CreatedAt")
                         .HasColumnType("text");
 
+                    b.Property<string>("Exchange")
+                        .HasColumnType("text");
+
                     b.Property<string>("Image")
                         .HasColumnType("text");
 
@@ -79,7 +82,7 @@ namespace Bookinist.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<decimal>("Price")
+                    b.Property<decimal?>("Price")
                         .HasColumnType("numeric");
 
                     b.Property<string>("ShortDesc")
@@ -87,6 +90,9 @@ namespace Bookinist.Migrations
 
                     b.Property<bool>("Status")
                         .HasColumnType("boolean");
+
+                    b.Property<int>("TypeId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("UpdatedAt")
                         .HasColumnType("text");
@@ -98,9 +104,38 @@ namespace Bookinist.Migrations
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("TypeId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Books");
+                });
+
+            modelBuilder.Entity("Bookinist.Models.Entity.BookType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Type")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BookTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Type = "На продажу"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Type = "Обмен"
+                        });
                 });
 
             modelBuilder.Entity("Bookinist.Models.Entity.Category", b =>
@@ -409,11 +444,19 @@ namespace Bookinist.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Bookinist.Models.Entity.BookType", "BookType")
+                        .WithMany("Books")
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Bookinist.Models.Entity.User", "User")
                         .WithMany("Books")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("BookType");
 
                     b.Navigation("Category");
 
@@ -480,6 +523,11 @@ namespace Bookinist.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Bookinist.Models.Entity.BookType", b =>
+                {
+                    b.Navigation("Books");
                 });
 
             modelBuilder.Entity("Bookinist.Models.Entity.Category", b =>

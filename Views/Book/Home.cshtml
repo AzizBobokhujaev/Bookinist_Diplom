@@ -17,10 +17,10 @@
         <div class="col-md-3 col-xs-12 col-lg-4 mb-4">
             <div class="card bg-dark" style="height:453px; display:flex; align-items:center; justify-content:center; padding:10px; text-align:center;">
                 <div class="card-body">
-                    <img src="@Url.Content("~/Image/" +book.CreatedAt.ToString()+".jpg")" type="jpg/mpeg" id="@book.Id" style="width:180px; height:250px; align-items:center;" />
+                    <img src="@Url.Content("~/image/" +book.CreatedAt+".jpg")" type="jpg/mpeg" id="@book.Id" style="width:180px; height:250px; align-items:center;" alt="book"/>
                     <h5 class="card-title text-info" style="text-align:center;">@book.Name</h5>
                     <h6 class="card-text text-white">Автор: @book.Author</h6>
-                    <p class="card-text text-white">Цена: @book.Price TJS</p>
+                    <p class="card-text text-white">Обмен на: @book.Exchange</p>
                     <a class="btn btn-info" href="~/Book/Details?id=@book.Id">Подробно</a>
                 </div>
             </div>

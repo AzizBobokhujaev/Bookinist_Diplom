@@ -1,4 +1,4 @@
-﻿@model List<Bookinist.Models.DTO.BookDTO>
+﻿@model Bookinist.Models.DTO.BookDTO
   
 <br />
 <h5 class="text-white">Подробно о книге</h5>
@@ -6,27 +6,33 @@
     
     
         <div class="card-body">
-            @foreach (var book in Model)
-            {
+            
                 <div class="row">
                     <div class="col-md-4">
 
-                        <img src="@Url.Content("~/Image/"+book.CreatedAt.ToString()+".jpg")" type="jpg/mpeg" id="@book.Id" style=" height:400px;width:280px; align-items:center;" class="img-thumbnail"/>
+                        <img src="@Url.Content("~/image/"+Model.CreatedAt+".jpg")" type="jpg/mpeg" id="@Model.Id" style=" height:400px;width:280px; align-items:center;" class="img-thumbnail" alt="book"/>
 
                     </div>
                     <div class="col-md">
                         <div class="">
-                            <span style="font-size: 26px; color: rgb(94,187,241);" class="bold-text">@book.Name</span> <br />
-                            <span class="bold-text text-white">Автор : </span>@book.Author<br />
-                            <span class="bold-text text-white">Цена : </span>@book.Price<br />
-                            <span class="bold-text text-white">Категория : </span>@book.CategoryName<br />
-                            <span class="bold-text text-white">Описание: </span> @book.LongDesc <br /><br />
-                            <span class="bold-text text-white">Владелец: </span> @book.UserName <br />
-                            <span class="bold-text text-white">Телефон: </span> @book.PhoneNumber <br />
+                            <span style="font-size: 26px; color: rgb(94,187,241);" class="bold-text">@Model.Name</span> <br />
+                            <span class="bold-text text-white">Автор : </span>@Model.Author<br />
+                            @if (Model.TypeId == 1)
+                            {
+                                <span class="bold-text text-white">Цена : </span>@Model.Price<br />
+                            }
+                            else
+                            {
+                                <span class="bold-text text-white">Обмен на : </span>@Model.Exchange<br />
+                            }
+                            <span class="bold-text text-white">Категория : </span>@Model.CategoryName<br />
+                            <span class="bold-text text-white">Описание: </span> @Model.LongDesc <br /><br />
+                            <span class="bold-text text-white">Владелец: </span> @Model.UserName <br />
+                            <span class="bold-text text-white">Телефон: </span> @Model.PhoneNumber <br />
                         </div>
                     </div>
                 </div>
-            }
+            
        
 
     </div>
